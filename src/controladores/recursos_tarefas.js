@@ -12,7 +12,7 @@ const criarTarefa = (req, res) => {
     });
 
     if (tarefaJaExistente) {
-        return res.status(400).json({ mensagem: `Já existe uma tarefa com este titulo (${titulo}), por favor insirar uma nova tarefa ou exclua a presente tarefa.` });
+        return res.status(400).json({ mensagem: `Já existe uma tarefa com este titulo (${titulo}), por favor insira uma nova tarefa ou exclua a presente tarefa.` });
     };
 
     tarefas.push({
@@ -48,6 +48,10 @@ const atualizarTarefa = (req, res) => {
     const { id } = req.params;
     const { titulo, descricao, dataVencimento, statusDaTarefa } = req.body;
 
+    if (!id) {
+        return res.status(400).json({ mensagem: 'Para encontrar a tarefa desejada é nescessário fornecer o indentificador desta tarefa.' });
+    };
+
     const tarefaEncontrada = tarefas.find((tarefa) => {
         return tarefa.id === Number(id);
     });
@@ -65,7 +69,7 @@ const atualizarTarefa = (req, res) => {
     });
 
     if (tarefaJaExistente) {
-        return res.status(400).json({ mensagem: `Já existe uma tarefa com este titulo (${titulo}), por favor insirar uma nova tarefa ou exclua a presente tarefa.` });
+        return res.status(400).json({ mensagem: `Já existe uma tarefa com este titulo (${titulo}), por favor insira uma nova tarefa ou exclua a presente tarefa.` });
     };
 
     tarefaEncontrada.titulo = titulo;
